@@ -1,11 +1,15 @@
 #! /usr/bin/env node
 const fs = require('fs');
+const path = require('path');
 const Promise = require('bluebird');
 const Gdax = require('gdax');
 const BigNumber = require('bignumber.js');
 
 const readFile = Promise.promisify(fs.readFile);
+const writeFile = Promise.promisify(fs.writeFile);
+const stat = Promise.promisify(fs.stat);
 
+const CONFIG_FILENAME = '.buy-bitcoin';
 const USD_CURRENCY = 'USD';
 const BITCOIN_CURRENCY = 'BTC';
 const STATUS_PENDING = 'pending';
@@ -19,11 +23,47 @@ if (process.argv.length < 3) {
 
 const buyAmount = new BigNumber(process.argv[2]);
 
-function readConfig() {
-  return readFile('config.json', 'utf-8')
+function readConfig(file) {
+  return readFile(file, 'utf-8')
     .then((contents) => {
       return JSON.parse(contents);
     });
+}
+
+function getConfig() {
+  const key = process.platform == 'win32' ? 'USERPROFILE' : 'HOME';
+  const home = process.env[key];
+  const configLocation = path.join(path.resolve(home), CONFIG_FILENAME);
+  return stat(configLocation)
+    .catch((err) => {
+      if (err.code === 'ENOENT') { 
+        return createConfig(configLocation)
+          .then(() => {
+            console.error(`buy-bitcoin: Please fill in the config file located at ${configLocation} with your api key information`);
+            console.error('buy-bitcoin: See https://github.com/DeviateFish/buy-bitcoin for more information');
+            return Promise.reject(new Error('buy-bitcoin: Not configured!'));
+          });
+      } else {
+        return Promise.reject(err);
+      }
+    })
+    .then((stat) => {
+      if (stat.isFile()) {
+        return readConfig(configLocation);
+      } else {
+        return Promise.reject(`buy-bitcoin: Could not load configuration! ${configLocation} is not a file!`);
+      }
+    });
+}
+
+function createConfig(file) {
+  const config = {
+    key: 'YOUR_GDAX_KEY',
+    secret: 'YOUR_GDAX_SECRET',
+    passphrase: 'YOUR_GDAX_API_PASSPHRASE',
+    apiURI: 'https://api.gdax.com'
+  };
+  return writeFile(file, JSON.stringify(config, null, 2), 'utf-8');
 }
 
 function wait(delay) {
@@ -46,7 +86,7 @@ function waitForOrder(client, orderId, timeout) {
     });
 }
 
-readConfig()
+getConfig()
   .then((config) => {
     const client = new Gdax.AuthenticatedClient(
       config.key,

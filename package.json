@@ -1,0 +1,21 @@
+{
+  "name": "buy-bitccoin",
+  "version": "0.5.0",
+  "description": "Buy some bitcoin on gdax",
+  "bin": {
+    "buy-bitcoin": "index.js"
+  },
+  "scripts": {
+    "lint": "eslint index.js"
+  },
+  "author": "DeviateFish",
+  "license": "ISC",
+  "dependencies": {
+    "bignumber.js": "6.0.0",
+    "bluebird": "3.5.1",
+    "gdax": "0.6.0"
+  },
+  "devDependencies": {
+    "eslint": "4.18.1"
+  }
+}

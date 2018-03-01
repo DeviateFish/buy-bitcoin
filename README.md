@@ -4,10 +4,11 @@ Buys bitcoin via the GDAX api.
 
 ## Setup
 
-* Copy `config.json.example` to `config.json`
+* `npm install -g buy-bitcoin`
 * Generate a GDAX [Api key](https://www.gdax.com/settings/api)
+* `buy-bitcoin --init`
 * Fill in `config.json` with your API key details
-* npm install -g
+* `buy-bitcoin <amount>`
 
 ## Usage
 

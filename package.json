@@ -1,6 +1,6 @@
 {
   "name": "buy-bitccoin",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Buy some bitcoin on gdax",
   "bin": {
     "buy-bitcoin": "index.js"

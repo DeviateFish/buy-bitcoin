@@ -1,15 +1,23 @@
 {
-  "name": "buy-bitccoin",
+  "name": "buy-bitcoin",
   "version": "0.6.0",
-  "description": "Buy some bitcoin on gdax",
-  "bin": {
-    "buy-bitcoin": "index.js"
-  },
+  "description": "Buy some bitcoin on GDAX",
+  "bin": "./index.js",
   "scripts": {
     "lint": "eslint index.js"
   },
   "author": "DeviateFish",
+  "keywords": [
+    "bitcoin",
+    "gdax",
+  ],
+  "homepage": "https://github.com/DeviateFish/buy-bitcoin",
+  "bugs": "https://github.com/DeviateFish/buy-bitcoin/issues",
   "license": "ISC",
+  "repository": "https://github.com/DeviateFish/buy-bitcoin.git",
+  "engines": {
+    "node": ">=8"
+  },
   "dependencies": {
     "bignumber.js": "6.0.0",
     "bluebird": "3.5.1",

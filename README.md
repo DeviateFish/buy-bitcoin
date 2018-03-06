@@ -29,3 +29,17 @@ Schedule a weekly buy with cron!  Use the below to buy $100 in Bitcoin every Mon
 ### Random buy:
 
 Buy whenever!  Just run `buy-bitcoin 50` to buy $50 of Bitcoin right now.
+
+
+## Change Log
+
+ * v0.7.2
+   * Add timestamps to log message
+ * v0.7.1
+   * README fix -- correct usage
+ * v0.7.0
+   * First public version
+   * Documentation and configuration changes
+ * v0.6.0
+   * Prototype
+

@@ -24,8 +24,27 @@ function readConfig(file) {
     });
 }
 
-function log(msg) {
-  console.log(`buy-bitcoin: ${msg}`);
+function pad(num) {
+  return `0${num}`.slice(-2);
+}
+
+function getTimeString() {
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const month = pad(now.getUTCMonth());
+  const day = pad(now.getUTCDate());
+  const hour = pad(now.getUTCHours());
+  const minute = pad(now.getUTCMinutes());
+  const second = pad(now.getUTCSeconds());
+  return `${year}-${month}-${day} ${hour}:${minute}:${second} +00:00`;
+}
+
+function log(msg, includeTimestamp) {
+  let prefix = '';
+  if (includeTimestamp) {
+    prefix = `[${getTimeString()}]`;
+  }
+  console.log(`${prefix}buy-bitcoin: ${msg}`);
 }
 
 function error(msg) {
@@ -152,7 +171,7 @@ function buyBitcoin(argv) {
           }
           const filledSize = new BigNumber(order.filled_size);
           const buySize = new BigNumber(order.funds);
-          log(`Done, bought ${filledSize.toFixed(8)} BTC for $${buySize.toFixed(3)}`);
+          log(`Bought ${filledSize.toFixed(8)} BTC for $${buySize.toFixed(3)}`, true);
         });
     });
 }

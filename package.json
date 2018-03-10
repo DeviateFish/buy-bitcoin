@@ -1,6 +1,6 @@
 {
   "name": "buy-bitcoin",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Buy some bitcoin on GDAX",
   "bin": "./index.js",
   "scripts": {

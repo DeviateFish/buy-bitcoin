@@ -179,7 +179,7 @@ function buyBitcoin(argv) {
 if (process.argv.length < 3) {
   console.log('Usage:');
   console.log('buy-bitcoin <amount>');
-  console.log('buys <amount> bitcoin via GDAX');
+  console.log('Buys <amount> (denominated in USD) worth of bitcoin via GDAX');
   console.log('');
   console.log('buy-bitcoin --init');
   console.log('Creates an empty configuration file to hold GDAX API credentials.');

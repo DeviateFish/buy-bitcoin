@@ -1,11 +1,11 @@
 # buy-bitcoin
 
-Buys bitcoin via the GDAX api.
+Buys bitcoin via the Coinbase Pro API.
 
 ## Setup
 
 * `npm install -g buy-bitcoin`
-* Generate a GDAX [Api key](https://www.gdax.com/settings/api)
+* Generate a Coinbase Pro [Api key](https://pro.coinbase.com/profile/api)
 * `buy-bitcoin --init`
 * Fill in `config.json` with your API key details
 * `buy-bitcoin <amount>`
@@ -33,6 +33,11 @@ Buy whenever!  Just run `buy-bitcoin 50` to buy $50 of Bitcoin right now.
 
 ## Change Log
 
+ * v0.7.4
+   * Updates to match GDAX -> Coinbase Pro name change
+   * Basically, swap out `api.gdax.com` with `api.pro.coinbase.com`
+ * v0.7.3
+   * Added changelog and tweaked reporting slightly
  * v0.7.2
    * Add timestamps to log message
  * v0.7.1

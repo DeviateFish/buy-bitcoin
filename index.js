@@ -62,7 +62,7 @@ function getConfig() {
   return stat(configLocation)
     .catch((err) => {
       if (err.code === 'ENOENT') { 
-        error('Run `buy-bitcoin --init` and populate the init file with your GDAX API credentials');
+        error('Run `buy-bitcoin --init` and populate the init file with your Coinbase Pro API credentials');
         return Promise.reject(new Error('buy-bitcoin: Not configured!'));
       } else {
         return Promise.reject(err);
@@ -91,15 +91,15 @@ function createConfig() {
     })
     .then(() => {
       const config = {
-        key: 'YOUR_GDAX_KEY',
-        secret: 'YOUR_GDAX_SECRET',
-        passphrase: 'YOUR_GDAX_API_PASSPHRASE',
-        apiURI: 'https://api.gdax.com'
+        key: 'YOUR_COINBASE_PRO_API_KEY',
+        secret: 'YOUR_COINBASE_PRO_API_SECRET',
+        passphrase: 'YOUR_COINBASE_PRO_API_PASSPHRASE',
+        apiURI: 'https://api.pro.coinbase.com'
       };
       return writeFile(configFile, JSON.stringify(config, null, 2), 'utf-8');
     })
     .then(() => {
-      log(`Created ${configFile}!  Please fill it out with your GDAX API credentials, then buy away!`);
+      log(`Created ${configFile}!  Please fill it out with your Coinbase Pro API credentials, then buy away!`);
     });
 }
 
@@ -138,7 +138,7 @@ function buyBitcoin(argv) {
         .then((accounts) => {
           const filtered = accounts.filter(account => account.currency === USD_CURRENCY);
           if (!filtered.length) {
-            return Promise.reject(new Error('buy-bitcoin: Could not find USD account on GDAX!'));
+            return Promise.reject(new Error('buy-bitcoin: Could not find USD account on Coinbase Pro!'));
           }
           const usdAccount = filtered[0];
           const accountBalance = new BigNumber(usdAccount.available);
@@ -179,10 +179,10 @@ function buyBitcoin(argv) {
 if (process.argv.length < 3) {
   console.log('Usage:');
   console.log('buy-bitcoin <amount>');
-  console.log('Buys <amount> (denominated in USD) worth of bitcoin via GDAX');
+  console.log('Buys <amount> (denominated in USD) worth of bitcoin via the Coinbase Pro API');
   console.log('');
   console.log('buy-bitcoin --init');
-  console.log('Creates an empty configuration file to hold GDAX API credentials.');
+  console.log('Creates an empty configuration file to hold Coinbase Pro API credentials.');
   process.exit(-1);
 }
 
